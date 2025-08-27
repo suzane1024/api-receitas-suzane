@@ -8,4 +8,4 @@ def hello():
 
 @app.get("/receitas/{receita}")
 def get_receita():
-    return {"message": "Hello World!"}
+    return {"message": "Livro de Receitas!"}
