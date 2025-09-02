@@ -35,4 +35,5 @@ receitas = [
  'utensilio': ['Tigela grande', 'Colher', 'Forma'],
  'modo de preparo': 'Em uma panela, ferva o leite, o óleo e o sal., Adicione essa mistura quente ao polvilho e misture bem., Deixe esfriar um pouco e adicione os ovos um de cada vez, mexendo até incorporar., Por último, adicione o queijo ralado e misture bem com as mãos até formar uma massa homogênea., Faça bolinhas e coloque em uma forma untada., Leve ao forno pré-aquecido a 180°C por cerca de 30 minutos ou até dourarem.'
 }
+
 ]
