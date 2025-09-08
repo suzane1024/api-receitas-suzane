@@ -30,3 +30,19 @@ def criar_receita(dados: Receita):
     receitas.append(nova_receita)
 
     return nova_receita
+
+@app.get("/receitas/{nome_receita}")
+def get_receita_por_nome(nome_receita: str ):
+    for receitas in receitas:
+        if receitas.nome == nome_receita:
+            return receita
+        
+    return {"receita não encontrada"}
+
+@app.post("/receitas")
+def create_receita(dados: Receita):
+    nova_receitas = dados 
+
+    receitas.append(nova_receita)
+
+    return nova_receita
