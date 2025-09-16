@@ -101,10 +101,14 @@ def update_receita(id: int, dados: ReceitaCreate):
             return receita_atualizada
     return {"mensagem": "Receita nao encontrada"}
 
-@app.put("/receita/{id}")
-def update_receita(id: int, dados: ReceitaCreate):
-    if not dados.nome.strip() or not dados.modo_de_preparo.strip() or any(not ing.strip() for ing in dados.ingredients):
-        raise HTTPException(status_code=400, detail="Nenhum campo pode ser vazio.")
-    for receita in receitas:
-        if receita.id != id and receita.nome.lower() == dados.nome.lower():
-            raise HTTPException(status_code=400, detail="Já existe uma receita com esse nome.")
+@app.delete("/receitas/{id}")
+def deletar_receita(id: int):
+    for i in range(len(receitas)):
+        if receitas[i].id == id:
+            receitas.pop(i)
+            return {"mensagem": "Receita deletada"}
+
+    for i in range(len(receitas)):
+            
+            return {"mensagem": "Receita nao encontrada"}
+    
