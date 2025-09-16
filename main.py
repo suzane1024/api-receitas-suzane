@@ -6,7 +6,7 @@ app = FastAPI(title='API da Suzane')
 
 class ReceitaCreate(BaseModel):
     nome: str
-    ingredientes: List[str]   # corrigido: antes estava "ingredients"
+    ingredientes: List[str]   
     modo_de_preparo: str
 
 class Receita(BaseModel):
@@ -56,7 +56,7 @@ def update_receita(id: int, dados: ReceitaCreate):
             receita_atualizada = Receita(
                 id=id,
                 nome=dados.nome,
-                ingredientes=dados.ingredientes,   # corrigido: antes estava "dados.ingredients"
+                ingredientes=dados.ingredientes,   
                 modo_de_preparo=dados.modo_de_preparo
             )
             receitas[i] = receita_atualizada
