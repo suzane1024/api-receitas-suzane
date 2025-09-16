@@ -109,6 +109,7 @@ def deletar_receita(id: int):
             return {"mensagem": "Receita deletada"}
 
     for i in range(len(receitas)):
-            
+        if receitas[i].id == id:
+            receitas.pop(i)
             return {"mensagem": "Receita nao encontrada"}
     
