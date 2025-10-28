@@ -1,9 +1,11 @@
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from typing import List 
+from typing import List
+from http import HTTPStatus
 
 class ReceitaCreate(BaseModel):
     nome: str
-    ingredientes: List[str]   
+    ingredientes: List[str]
     modo_de_preparo: str
 
 class Receita(BaseModel):
@@ -12,16 +14,14 @@ class Receita(BaseModel):
     ingredientes: List[str]
     modo_de_preparo: str
 
-@app.get("/receitas")
-@app.get("/receitas", status_code=HTTPStatus.OK)
-@app.get("/receitas", response_model=[Receita], status_code=HTTPStatus.OK)
-def get_todas_receitas
-    return receitas
-raise HTTPException(status_code=HTTPStatus.NOT_FOUND, detail="Receita não encontrada")
+app = FastAPI()
+receitas: List[Receita] = []
 
-@app.post("/receitas")
-@app.post("/receitas", status_code=HTTPStatus.CREATED)
-@app.post("/receitas", response_model=[Receita], status_code=HTTPStatus.CREATED)
+@app.get("/receitas", response_model=List[Receita], status_code=HTTPStatus.OK)
+def get_todas_receitas():
+    return receitas
+
+@app.post("/receitas", response_model=Receita, status_code=HTTPStatus.CREATED)
 def criar_receita(dados: ReceitaCreate):
     for receita in receitas:
         if receita.nome.lower() == dados.nome.lower():
@@ -30,27 +30,22 @@ def criar_receita(dados: ReceitaCreate):
     nova_receita = Receita(id=novo_id, **dados.dict())
     receitas.append(nova_receita)
     return nova_receita
-raise HTTPException(status_code=HTTPStatus.NOT_FOUND, detail="Receita não encontrada")
 
-@app.put("/receita/{id}")
-@app.put("/receita", status_code=HTTPStatus.OK)
-@app.put("/receita", response_model=[Receita], status_code=HTTPStatus.OK)
+@app.put("/receitas/{id}", response_model=Receita, status_code=HTTPStatus.OK)
 def update_receita(id: int, dados: ReceitaCreate):
     for i in range(len(receitas)):
         if receitas[i].id == id:
             receita_atualizada = Receita(
                 id=id,
                 nome=dados.nome,
-                ingredientes=dados.ingredientes,   
+                ingredientes=dados.ingredientes,
                 modo_de_preparo=dados.modo_de_preparo
             )
             receitas[i] = receita_atualizada
             return receita_atualizada
     raise HTTPException(status_code=HTTPStatus.NOT_FOUND, detail="Receita não encontrada")
 
-@app.delete("/receitas/{id}")
 @app.delete("/receitas/{id}", status_code=HTTPStatus.OK)
-@app.delete("/receitas/{id}",response_model=[Receita], status_code=HTTPStatus.OK)
 def deletar_receita(id: int):
     for i in range(len(receitas)):
         if receitas[i].id == id:
