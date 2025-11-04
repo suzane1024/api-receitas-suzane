@@ -2,7 +2,7 @@ from http import HTTPStatus
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List
-from .schema import ReceitaCreate, Receita, Usuario, BaseUsuario, UsuarioPublic
+from schema import ReceitaCreate, Receita, Usuario, BaseUsuario, UsuarioPublic
 
 app = FastAPI(title='API da Suzane')
 
@@ -98,14 +98,21 @@ def get_usuario_por_id(id: int):
         
 @app.put("/usuarios/{id}", response_model=UsuarioPublic, status_code=HTTPStatus.OK)
 def update_usuario(id: int, dados: BaseUsuario):
-    for i in range(len(receitas)):
-        if receitas[i].id == id:
-            receita_atualizada = Receita(
+    for i in range(len(usuarios)):
+        if usuarios[i].id == id:
+            usuario_atualizado = Usuario(
                 id=id,
-                nome=dados.nome,
-                ingredientes=dados.ingredientes,   
-                modo_de_preparo=dados.modo_de_preparo
+                nome_usuario= str,
+                email= str,   
+                senha= str
             )
-            receitas[i] = receita_atualizada
-            return receita_atualizada
-    raise HTTPException(status_code=404, detail="Receita não encontrada")
+            usuarios[i] = usuario_atualizado
+            return usuario_atualizado
+
+@app.delete("/usuarios/{id}", response_model=UsuarioPublic, status_code=HTTPStatus.OK)
+def delete_usuario(id: int):
+    for i in range(len(usuarios)):
+        if usuarios[i].id == id:
+            usuarios.pop(i)
+            return {"mensagem": "Usuario Deletado"}
+    raise HTTPException(status_code=404, detail="Usuario não encontrado")
