@@ -1,2 +1,2 @@
 # api-receitas-suzane
-Um API de Receitas
+Uma API de Receitas
